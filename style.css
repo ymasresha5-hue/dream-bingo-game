@@ -1,0 +1,968 @@
+/* ============================================
+   MODERN BINGO GAME - CSS
+   Light Blue & Purple Theme
+   ============================================ */
+
+/* ============================================
+   1. ROOT & VARIABLES
+   ============================================ */
+:root {
+    /* Color Palette */
+    --primary-blue: #4A90E2;
+    --light-blue: #E8F1FF;
+    --lighter-blue: #F5FBFF;
+    --purple: #8B5CF6;
+    --light-purple: #F3E8FF;
+    --success-green: #10B981;
+    --warning-orange: #F59E0B;
+    --danger-red: #EF4444;
+    --gray-900: #111827;
+    --gray-800: #1F2937;
+    --gray-700: #374151;
+    --gray-600: #4B5563;
+    --gray-300: #D1D5DB;
+    --gray-200: #E5E7EB;
+    --gray-100: #F3F4F6;
+    --white: #FFFFFF;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition: all 0.3s ease;
+    --transition-fast: all 0.15s ease;
+}
+
+/* ============================================
+   2. GLOBAL STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--lighter-blue) 0%, var(--light-purple) 100%);
+    color: var(--gray-900);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ============================================
+   3. SCREEN & LAYOUT MANAGEMENT
+   ============================================ */
+.screen {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--spacing-lg);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    opacity: 1;
+}
+
+.screen.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/* ============================================
+   4. SELECTION SCREEN
+   ============================================ */
+.selection-wrapper {
+    width: 100%;
+    max-width: 1400px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    animation: slideDownFade 0.6s ease;
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--gray-600);
+    font-weight: 500;
+}
+
+.selection-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+}
+
+/* Number Selection Section */
+.number-selection-section {
+    animation: slideLeftFade 0.6s ease;
+}
+
+.number-selection-section h2,
+.setup-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-lg);
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.number-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.number-btn {
+    aspect-ratio: 1;
+    border: 2px solid var(--gray-200);
+    background: var(--white);
+    color: var(--gray-900);
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.number-btn:hover:not(.selected) {
+    border-color: var(--primary-blue);
+    background: var(--light-blue);
+    transform: translateY(-2px);
+}
+
+.number-btn.selected {
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    color: var(--white);
+    border-color: var(--primary-blue);
+    box-shadow: var(--shadow-md), 0 0 0 3px rgba(74, 144, 226, 0.2);
+    transform: scale(1.05);
+}
+
+.selection-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    background: var(--light-blue);
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    color: var(--primary-blue);
+}
+
+/* Setup Section */
+.setup-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    animation: slideRightFade 0.6s ease;
+}
+
+.config-card,
+.selected-cards-section {
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+    color: var(--gray-900);
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    transition: var(--transition-fast);
+    background: var(--white);
+    color: var(--gray-900);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.input-with-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 2fr;
+    gap: var(--spacing-md);
+    align-items: center;
+}
+
+.btn-amount {
+    padding: var(--spacing-md);
+    border: 2px solid var(--gray-200);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.btn-amount:hover {
+    border-color: var(--primary-blue);
+    background: var(--light-blue);
+}
+
+.btn-amount.active {
+    background: var(--primary-blue);
+    color: var(--white);
+    border-color: var(--primary-blue);
+}
+
+.summary {
+    padding: var(--spacing-lg);
+    background: var(--light-blue);
+    border-radius: var(--radius-lg);
+    margin-top: var(--spacing-lg);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    font-size: 1rem;
+}
+
+.summary-row strong {
+    color: var(--primary-blue);
+    font-weight: 700;
+}
+
+/* Selected Numbers */
+.selected-numbers-list {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    background: var(--light-blue);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    align-content: flex-start;
+}
+
+.selected-number-tag {
+    background: var(--primary-blue);
+    color: var(--white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.empty-state {
+    color: var(--gray-600);
+    text-align: center;
+    width: 100%;
+}
+
+/* ============================================
+   5. BUTTONS
+   ============================================ */
+.btn-primary,
+.btn-secondary {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: var(--gray-100);
+    color: var(--gray-900);
+    border: 2px solid var(--gray-200);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-200);
+    border-color: var(--gray-300);
+}
+
+.btn-large {
+    width: 100%;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    font-size: 1.1rem;
+}
+
+.btn-large .icon {
+    margin-left: var(--spacing-sm);
+    animation: slideRight 0.5s ease infinite;
+}
+
+.btn-secondary:disabled,
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   6. GAME SCREEN
+   ============================================ */
+.game-wrapper {
+    width: 100%;
+    max-width: 1600px;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-2xl);
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.header-left h2 {
+    margin-bottom: var(--spacing-sm);
+    color: var(--gray-900);
+}
+
+.game-mode {
+    color: var(--gray-600);
+    font-size: 0.95rem;
+}
+
+.timer-box {
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    color: var(--white);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+}
+
+.game-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2xl);
+}
+
+/* Bingo Board */
+.bingo-board-section {
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.bingo-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.bingo-column {
+    text-align: center;
+}
+
+.column-header {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    padding: var(--spacing-md);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.bingo-numbers {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.bingo-number {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-blue);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--gray-900);
+    transition: var(--transition);
+    cursor: default;
+    position: relative;
+}
+
+.bingo-number.called {
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    color: var(--white);
+    border-color: var(--primary-blue);
+    transform: scale(0.95);
+    animation: popEffect 0.4s ease;
+}
+
+.bingo-number.marked {
+    background: var(--success-green);
+    color: var(--white);
+    border-color: var(--success-green);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+/* Game Info Section */
+.game-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.called-numbers-box {
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    flex: 1;
+}
+
+.called-numbers-box h3 {
+    margin-bottom: var(--spacing-lg);
+    color: var(--gray-900);
+}
+
+.called-numbers-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    max-height: 300px;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    background: var(--light-blue);
+    border-radius: var(--radius-lg);
+}
+
+.called-number {
+    background: var(--primary-blue);
+    color: var(--white);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 0.9rem;
+    animation: slideDownFade 0.3s ease;
+}
+
+/* Game Stats */
+.game-stats {
+    background: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.stat-label {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+/* Game Actions */
+.game-actions {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.game-actions .btn-secondary {
+    flex: 1;
+}
+
+/* ============================================
+   7. RESULT ANIMATION & POPUP
+   ============================================ */
+.result-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.animation-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--lighter-blue) 0%, var(--light-purple) 100%);
+}
+
+.animation-container {
+    width: 100%;
+    max-width: 800px;
+    padding: var(--spacing-xl);
+}
+
+.balloon-animation {
+    text-align: center;
+    animation: popIn 0.6s ease;
+}
+
+.animation-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.balloons-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.balloon {
+    width: 60px;
+    height: 70px;
+    margin: 0 auto;
+    border-radius: 50% 50% 50% 0;
+    position: relative;
+    animation: balloonPop 0.6s ease;
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 40px;
+    background: var(--gray-400);
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.animation-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-top: var(--spacing-xl);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-blue), var(--purple));
+    width: 0%;
+    animation: progressFill 4s ease-out forwards;
+}
+
+.result-popup {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 3rem 2rem;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: var(--shadow-xl);
+    text-align: center;
+    animation: popIn 0.5s ease 4s both;
+}
+
+.result-header {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.result-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-lg);
+    animation: bounce 0.6s ease 4s infinite;
+}
+
+.result-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.result-subtitle {
+    color: var(--gray-600);
+    font-size: 1rem;
+    margin-bottom: var(--spacing-xl);
+}
+
+.prize-display {
+    background: linear-gradient(135deg, var(--primary-blue), var(--purple));
+    color: var(--white);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.prize-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: var(--spacing-sm);
+}
+
+.prize-amount {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.result-details {
+    background: var(--light-blue);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+    text-align: left;
+}
+
+.result-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.result-detail-row:last-child {
+    border-bottom: none;
+}
+
+.result-detail-label {
+    color: var(--gray-600);
+}
+
+.result-detail-value {
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.result-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+}
+
+.result-actions .btn-primary,
+.result-actions .btn-secondary {
+    flex: 1;
+}
+
+/* ============================================
+   8. LOADING & UTILITY
+   ============================================ */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--light-blue);
+    border-top-color: var(--primary-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--spacing-lg);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ============================================
+   9. ANIMATIONS
+   ============================================ */
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideLeftFade {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRightFade {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRight {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+}
+
+@keyframes popEffect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(0.95);
+    }
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes balloonPop {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* ============================================
+   10. SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light-blue);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--purple);
+}
+
+/* ============================================
+   11. RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 1024px) {
+    .selection-content,
+    .game-content {
+        grid-template-columns: 1fr;
+    }
+
+    .number-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+    .balloons-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
+
+    .game-header {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --spacing-lg: 1rem;
+        --spacing-xl: 1.5rem;
+    }
+
+    .logo {
+        font-size: 2rem;
+    }
+
+    .selection-content {
+        gap: var(--spacing-lg);
+    }
+
+    .number-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: var(--spacing-sm);
+        pad
